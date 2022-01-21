@@ -31,6 +31,9 @@ namespace Pavestone.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Create(ApplicationType type)
         {
+            if (!ModelState.IsValid)
+                return View();
+
             _db.ApplicationTypes.Add(type);
             _db.SaveChanges();
 
