@@ -39,5 +39,52 @@ namespace Pavestone.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int id)
+        {
+            var type = _db.ApplicationTypes.Find(id);
+            if (type == null)
+                return NotFound();
+
+            return View(type);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ApplicationType type)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            _db.ApplicationTypes.Update(type);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var type = _db.ApplicationTypes.Find(id);
+            if (type == null)
+                return NotFound();
+
+            return View(type);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int id)
+        {
+            var type = _db.ApplicationTypes.Find(id);
+            if (type == null)
+                return NotFound();
+
+            _db.ApplicationTypes.Remove(type);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
