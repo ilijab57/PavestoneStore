@@ -13,6 +13,8 @@ namespace Pavestone.Models
         [Required]
         public string Name { get; set; }
 
+        public string ShortDesc { get; set; }
+
         [Required]
         public string Description { get; set; }
 
