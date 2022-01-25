@@ -10,6 +10,7 @@ using Pavestone.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using HtmlAgilityPack;
 
 namespace Pavestone.Controllers
 {

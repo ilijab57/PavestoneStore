@@ -13,6 +13,8 @@ namespace Pavestone.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        [Display(Name = "Short Description")]
         public string ShortDesc { get; set; }
 
         [Required]
@@ -20,12 +22,15 @@ namespace Pavestone.Models
 
         [Range(1, int.MaxValue, ErrorMessage ="Price must be positive number")]
         public double Price { get; set; }
+
         public string Image { get; set; }
 
+        [Required]
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
+        [Required]
         [Display(Name = "Application Type")]
         public int ApplicationTypeId { get; set; }
         public virtual ApplicationType ApplicationType { get; set; }

@@ -8,5 +8,6 @@ namespace Pavestone
     public static class Constants
     {
         public static string ProductImagesPath = @"\images\product";
+        public static string SessionCart = "ShoppingCartSession";
     }
 }

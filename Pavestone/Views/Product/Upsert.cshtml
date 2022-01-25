@@ -4,7 +4,7 @@
     ViewData["Title"] =  action + " Product";
 }
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" id="product_form">
     <input hidden asp-for="Product.Id" />
     <div class="border p-3">
 
@@ -126,6 +126,13 @@
             $('.summernote').summernote({
                 height: 250
             })
+            $('#product_form').submit(function () {
+                var plainText = $($(".summernote").summernote("code")).text()
+                var removedSpaces = plainText.replace(/(?:\\[rn]|[\r\n]+)+/g, "")
+                $('.summernote').val(removedSpaces)
+            })
+
+
 
             $("#Add-Submit").on('click', function () {
                 if (document.getElementById("uploadBox").value == "") {
