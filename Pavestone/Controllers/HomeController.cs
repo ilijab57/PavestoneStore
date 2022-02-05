@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Pavestone.Utility;
 
 namespace Pavestone.Controllers
 {
@@ -36,6 +37,13 @@ namespace Pavestone.Controllers
 
         public IActionResult Details(int id)
         {
+            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(Constants.SessionCart) != null
+                && HttpContext.Session.Get<IEnumerable<ShoppingCart>>(Constants.SessionCart).Count() > 0)
+            {
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(Constants.SessionCart);
+            }
+
             DetailsVM detailsVM = new DetailsVM
             {
                 Product = _db.Products.Include(p => p.Category)
@@ -45,7 +53,52 @@ namespace Pavestone.Controllers
                 ExistsInCart = false
             };
 
+            foreach(var item in shoppingCartList)
+            {
+                if(item.ProductId == id)
+                {
+                    detailsVM.ExistsInCart = true;
+                }
+            }
+
             return View(detailsVM);
+        }
+
+
+        [HttpPost, ActionName("Details")]
+        public IActionResult DetailsPost(int id)
+        {
+            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(Constants.SessionCart) != null
+                && HttpContext.Session.Get<IEnumerable<ShoppingCart>>(Constants.SessionCart).Count() > 0)
+            {
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(Constants.SessionCart);
+            }
+
+            shoppingCartList.Add(new ShoppingCart { ProductId = id });
+            HttpContext.Session.Set(Constants.SessionCart, shoppingCartList);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult RemoveFromCart(int id)
+        {
+            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(Constants.SessionCart) != null
+                && HttpContext.Session.Get<IEnumerable<ShoppingCart>>(Constants.SessionCart).Count() > 0)
+            {
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(Constants.SessionCart);
+            }
+
+            var itemToRemove = shoppingCartList.SingleOrDefault(i => i.ProductId == id);
+            if(itemToRemove != null)
+            {
+                shoppingCartList.Remove(itemToRemove);
+            }
+
+            HttpContext.Session.Set(Constants.SessionCart, shoppingCartList);
+
+            return RedirectToAction(nameof(Index));
+
         }
 
         public IActionResult Privacy()
