@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Pavestone.Data;
 using Pavestone.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Pavestone.Controllers
 {
+    [Authorize(Roles = Constants.AdminRole)]
     public class ApplicationTypeController : Controller
     {
         private readonly ApplicationDbContext _db;

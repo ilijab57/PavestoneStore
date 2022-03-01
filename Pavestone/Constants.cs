@@ -7,10 +7,12 @@ namespace Pavestone
 {
     public static class Constants
     {
-        public static string ProductImagesPath = @"\images\product";
-        public static string SessionCart = "ShoppingCartSession";
+        public const string ProductImagesPath = @"\images\product";
+        public const string SessionCart = "ShoppingCartSession";
 
-        public static string AdminRole = "Admin";
-        public static string CustomerRole = "Customer";
+        public const string AdminRole = "Admin";
+        public const string CustomerRole = "Customer";
+
+        public const string EmailAdmin = "ilkas111@hotmail.com";
     }
 }

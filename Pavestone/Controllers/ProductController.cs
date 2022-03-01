@@ -11,9 +11,11 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using HtmlAgilityPack;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Pavestone.Controllers
 {
+    [Authorize(Roles = Constants.AdminRole)]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _db;

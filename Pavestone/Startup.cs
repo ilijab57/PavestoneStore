@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Pavestone.Utility;
 
 namespace Pavestone
 {
@@ -37,7 +39,9 @@ namespace Pavestone
             services.AddIdentity<IdentityUser,IdentityRole>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI()
-                .AddEntityFrameworkStores<ApplicationDbContext>() ;
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddDistributedMemoryCache();
             services.AddHttpContextAccessor();

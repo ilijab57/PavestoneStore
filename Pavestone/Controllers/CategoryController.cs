@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Pavestone.Data;
 using Pavestone.Models;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pavestone.Controllers
 {
+    [Authorize(Roles = Constants.AdminRole)]
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
